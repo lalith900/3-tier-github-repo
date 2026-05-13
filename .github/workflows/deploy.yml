@@ -1,0 +1,38 @@
+name: Three Tier CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build-test-deploy:
+
+    runs-on: self-hosted
+
+    steps:
+
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+
+      - name: Run Pytest
+        run: |
+          docker compose run --rm backend pytest
+
+
+      - name: Run Flake8
+        run: |
+          docker compose run --rm backend flake8 .
+
+
+      - name: Run Bandit
+        run: |
+          docker compose run --rm backend bandit -r .
+
+
+      - name: Build and Start Containers
+        run: |
+          docker compose down
+          docker compose up -d --build
