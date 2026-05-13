@@ -2,7 +2,6 @@ services:
 
   nginx:
     image: nginx:stable-alpine
-    container_name: nginx-container
 
     ports:
       - "80:80"
@@ -19,14 +18,12 @@ services:
 
   frontend:
     build: ./frontend
-    container_name: frontend-container
 
     restart: unless-stopped
 
 
   backend:
     build: ./backend
-    container_name: backend-container
 
     env_file:
       - ./backend/.env
@@ -40,7 +37,6 @@ services:
 
   postgres:
     image: postgres:16-alpine
-    container_name: postgres-container
 
     environment:
       POSTGRES_DB: appdb
@@ -55,7 +51,6 @@ services:
 
   redis:
     image: redis:7-alpine
-    container_name: redis-container
 
     restart: unless-stopped
 
