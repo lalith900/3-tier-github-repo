@@ -15,6 +15,10 @@ jobs:
 
       - name: Checkout Source Code
         uses: actions/checkout@v4
+        
+      - name: Copy .env file
+        run: |
+          cp /home/ubuntu/projects/three-tier-app/backend/.env backend/.env
 
 
       - name: Run Pytest
