@@ -23,6 +23,7 @@ jobs:
 
       - name: Run Pytest
         run: |
+          docker compose build --no-cache backend
           docker compose run --rm backend pytest
 
 
