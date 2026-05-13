@@ -1,12 +1,14 @@
-from flask import Flask
-from dotenv import load_dotenv
 import os
+
 import psycopg2
 import redis
+from dotenv import load_dotenv
+from flask import Flask
 
 load_dotenv()
 
 app = Flask(__name__)
+
 
 # PostgreSQL connection
 def get_db_connection():
@@ -14,7 +16,7 @@ def get_db_connection():
         host=os.getenv("DB_HOST"),
         database=os.getenv("DB_NAME"),
         user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD")
+        password=os.getenv("DB_PASSWORD"),
     )
 
 
@@ -22,7 +24,7 @@ def get_redis_client():
     return redis.Redis(
         host=os.getenv("REDIS_HOST"),
         port=os.getenv("REDIS_PORT"),
-        decode_responses=True
+        decode_responses=True,
     )
 
 
@@ -44,10 +46,7 @@ def db_check():
     cursor.execute("SELECT version();")
     db_version = cursor.fetchone()
 
-    return {
-        "database": "connected",
-        "postgres_version": db_version[0]
-    }
+    return {"database": "connected", "postgres_version": db_version[0]}
 
 
 @app.route("/redis-check")
@@ -58,9 +57,7 @@ def redis_check():
 
     value = redis_client.get("test_key")
 
-    return {
-        "redis": value
-    }
+    return {"redis": value}
 
 
 if __name__ == "__main__":
