@@ -1,0 +1,10 @@
+flask
+psycopg2-binary
+redis
+python-dotenv
+gunicorn
+pytest
+flake8
+black
+bandit
+safety
